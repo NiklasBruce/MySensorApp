@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class Accelerator extends AppCompatActivity implements SensorEventListene
     TextView orientation;
     private SensorManager sensorManager;
     Sensor accelerometer;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +31,16 @@ public class Accelerator extends AppCompatActivity implements SensorEventListene
         Z = (TextView) findViewById(R.id.accZ);
         orientation=(TextView) findViewById(R.id.orientation);
 
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(Accelerator.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+    public void play() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.explosion);
+        }
+        player.start();
     }
 
     @Override
@@ -48,11 +57,15 @@ public class Accelerator extends AppCompatActivity implements SensorEventListene
 
     }
 
-    if(event.values[1]<0) {
+    if(event.values[0]<0) {
             orientation.setText("Right");
 
 
         }
+    if(event.values[1]<0){
+        play();
+
+    }
 
     }
 

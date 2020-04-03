@@ -106,7 +106,7 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
 
         String where = "NW";
 
-        if (mAzimuth >= 350 || mAzimuth <= 10){
+        if (mAzimuth >= 345 || mAzimuth <= 15){
             where = "N";
             vibrator.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
         }
